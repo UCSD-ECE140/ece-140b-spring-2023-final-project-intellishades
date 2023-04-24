@@ -1,9 +1,9 @@
 # Usage:
 
 To initialize database:
-'''
+```
 mysql -u <mysql_username> -p < init_db.sql
-'''
+```
 
 # Change Log:
 
