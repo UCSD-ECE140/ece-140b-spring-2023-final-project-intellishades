@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Log In</title>
+        <script src="public/login.js"></script>
+        <link rel="stylesheet" href="public/login.css">
+    </head>
+    <body>
+        <nav>
+            <a href="/">Main Page</a> | <a href="/login">Log In</a> | <a href="/register">Sign Up</a>
+        </nav>
+        <h1>Log In</h1>
+        <div>You are currently logged out. Please log in below using username and password:</div>
+        <hr>
+        <form id="login-user-form">
+            <label>Username: </label>
+            <input type="text" id="username-input" name="username" placeholder="jdoe" required></input>
+            <br>
+            <label>Password: </label>
+            <input type="password" id="password-input" name="password" required></input>
+            <input type="submit" id="create-user-button"></input>
+        </form>
+        <a href="/reset">Forgot password?</a>
+        <p>Does not have an account? </p><a href="/register">Click here to register!</a>
+    </body>
+</html>

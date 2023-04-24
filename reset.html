@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reset Password</title>
+        <script src="public/reset.js"></script>
+        <link rel="stylesheet" href="public/reset.css">
+    </head>
+    <body>
+        <nav>
+            <a href="/">Main Page</a> | <a href="/login">Log In</a> | <a href="/register">Sign Up</a>
+        </nav>
+        <h1>Reset Password</h1>
+        <div>Please reset password using the form below:</div>
+        <hr>
+        <form id="forgot-password-form">
+            <label>First Name: </label>
+            <input type="text" id="first-name-input" name="fname" placeholder="John" required></input>
+            <br>
+            <label>Last Name: </label>
+            <input type="text" id="last-name-input" name="lname" placeholder="Doe" required></input>
+            <br>
+            <label>Email: </label>
+            <input type="text" id="email-input" name="email" placeholder="my@email.edu" required></input>
+            <br>
+            <label>Username: </label>
+            <input type="text" id="username-input" name="uname" placeholder="jdoe" required></input>
+            <br>
+            <label>New Password: </label>
+            <input type="password" id="password-input" name="pword" required></input>
+            <input type="submit" id="reset-password-button"></input>
+        </form>
+    </body>
+</html>

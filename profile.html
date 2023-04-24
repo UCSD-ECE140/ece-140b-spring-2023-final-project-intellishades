@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign Up</title>
+        <script src="public/profile.js"></script>
+        <link rel="stylesheet" href="public/profile.css">
+    </head>
+    <body>
+        <nav>
+            <a href="/">Main Page</a> | <a href="/logout">Log Out</a> | <a href="/devices">Manage Device</a>
+        </nav>
+        <h1>User Profile</h1>
+        <div>This page shows are information we store about your account. Please modify using the form at the bottom:</div>
+        <hr>
+        <h3>User Information</h3>
+        <div class="all-user-info">
+            <div class="user-first-name"></div>
+            <div class="user-last-name"></div>
+            <div class="user-email"></div>
+            <div class="user-username"></div>
+        </div>
+        <h3>Update User Information</h3>
+        <form class="update-user-form">
+            <label>First Name: </label>
+            <input type="text" id="first-name-input" name="fname" placeholder="John" required></input>
+            <br>
+            <label>Last Name: </label>
+            <input type="text" id="last-name-input" name="lname" placeholder="Doe" required></input>
+            <br>
+            <label>Email: </label>
+            <input type="text" id="email-input" name="email" placeholder="my@email.edu" required></input>
+            <br>
+            <label>Username: </label>
+            <input type="text" id="username-input" name="uname" placeholder="jdoe" required></input>
+            <br>
+            <label>Password: </label>
+            <input type="password" id="password-input" name="pword" required></input>
+            <input type="submit" id="update-user-button"></input>
+        </form>
+        <h3>Delete User Information</h3>
+        <button class="delete-user">Remove User</button>
+    </body>
+</html>
