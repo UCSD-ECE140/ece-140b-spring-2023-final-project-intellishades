@@ -1,0 +1,160 @@
+.navBar-image {
+    position: static;
+    padding: 1px;
+    width: 100px;
+}
+
+
+.NavigationBar {
+    font-family: 'Ubuntu';
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: right;
+    background-color: white;
+}
+
+.button:hover {
+    background-color: #fee8ec;
+    color: #116466;
+}
+
+.navbar {
+    padding: 0.25rem 2rem 0.25rem 2rem;
+}
+
+.navBar_logo {
+    position: static;
+    padding: 1px;
+    width: 100px;
+    color: #116466;
+}
+
+.navitem {
+    padding: 0 2px 1px 2px;
+}
+
+.navbar-link {
+    padding-bottom: 4.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat';
+    color: pink;
+}
+
+.nav-link {
+    font-family: 'Ubuntu';
+    color: pink;
+    font-size: 50%;
+}
+
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.form_col {
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
+    padding: 2rem;
+    background-color: #333;
+}
+
+.form_col input {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.form_col input[type=submit] {
+    padding: 2rem;
+    background-color: #449ee3;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.form_col .save_button {
+    padding: 0.5rem;
+    background-color: #449ee3;
+    border: 3px solid #555;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.form_col .cancel_button {
+    padding: 0.5rem;
+    background-color: #555;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+form {
+    display: inline;
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #93bcde;
+    padding: 10px;
+}
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid black;
+    text-align: center;
+    font-size: 15px;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0.5em;
+}
+
+th {
+    background-color: lightgray;
+    font-weight: bold;
+}
+
+td {
+    text-align: center;
+}
+
+.green {
+    background-color: green;
+}
+
+body{
+    background-color: #2C3531;
+}
+
+table, th, td {
+    margin: auto;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #2C3531;
+  }
+
+h1 {
+    color: #FFCB9A;
+    text-align: center;
+    padding: 10px;
+}
