@@ -13,10 +13,6 @@
     background-color: white;
 }
 
-.button:hover {
-    background-color: #fee8ec;
-    color: #116466;
-}
 
 .navbar {
     padding: 0.25rem 2rem 0.25rem 2rem;
@@ -27,6 +23,16 @@
     padding: 1px;
     width: 100px;
     color: #116466;
+
+}
+
+.navBar_logo:hover {
+    position: static;
+    padding: 1px;
+    width: 100px;
+    color: #116466;
+    text-decoration: none;
+    /* Remove underline */
 }
 
 .navitem {
@@ -46,6 +52,30 @@
     font-size: 50%;
 }
 
+.bar {
+    position: relative;
+}
+
+.bar::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #000;
+    /* Thin bar above "shades" */
+    position: absolute;
+    top: -6px;
+    left: 0;
+    right: 0;
+}
+
+.bar:hover {
+    background-color: #ccc;
+    /* Grey background on hover */
+}
+
+td {
+    border: none;
+}
 
 .button {
     background-color: #4CAF50;
@@ -54,10 +84,51 @@
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
+    border-radius: 10px;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.transparent-button {
+    background-color: #bebebe;
+    color: #2C3531;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.blackout-button {
+    background-color: #bebebe;
+    color: #2C3531;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* Hover effect for the specific button */
+.transparent-button:hover {
+    background-color: #D1E8E2;
+}
+
+/* Hover effect for the black button */
+.blackout-button:hover {
+    background-color: #2C3531;
+    color: white;
+
 }
 
 .form_col {
@@ -133,25 +204,44 @@ th {
     font-weight: bold;
 }
 
-td {
-    text-align: center;
+
+/* Remove borders from a specific table with ID */
+#no_lines_table {
+    border-collapse: collapse;
 }
 
-.green {
-    background-color: green;
+/* Remove borders from the table rows of the specific table */
+#no_lines_table tr {
+    border: none;
 }
 
-body{
+/* Remove borders from the table cells of the specific table */
+#no_lines_table td,
+#no_lines_table th {
+    border: none;
+}
+
+.black {
     background-color: #2C3531;
 }
 
-table, th, td {
+.blue {
+    background-color: #D1E8E2;
+}
+
+body {
+    background-color: #2C3531;
+}
+
+table,
+th,
+td {
     margin: auto;
     border-radius: 10px;
     background-color: white;
     padding: 10px;
     border: 1px solid #2C3531;
-  }
+}
 
 h1 {
     color: #FFCB9A;
