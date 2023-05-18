@@ -207,6 +207,13 @@ def get_index() -> HTMLResponse:
     with open("index.html") as html:
         return HTMLResponse(content=html.read())
 
+# Open Schedule page 
+# GET /schedule
+@app.get('/schedule', response_class=HTMLResponse)
+def get_schedule() -> HTMLResponse:
+    with open("schedule.html") as html:
+        return HTMLResponse(content=html.read())
+
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 # If running the server directly from Python as a module
 if __name__ == "__main__":
