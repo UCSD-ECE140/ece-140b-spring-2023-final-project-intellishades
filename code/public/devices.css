@@ -1,0 +1,33 @@
+#devices {
+    margin: 5px 5px 5px 5px;
+    row-gap: 5px;
+    column-gap: 5px;
+    display: grid;
+    grid-template-columns: 0.3fr 0.3fr 0.3fr;
+    text-align: center;
+}
+
+.link-new-device {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link-new-device > *:hover {
+    color: #116466;
+}
+
+.device-added {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    background-color: white;
+    display: grid;
+    grid-template-rows: 0.3fr 0.3fr 0.3fr;
+}
+
+.device-added > * {
+    margin: 5px 5px 5px 5px;
+}
