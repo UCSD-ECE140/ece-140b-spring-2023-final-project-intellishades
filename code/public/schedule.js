@@ -127,7 +127,23 @@ function init () { //only for things that are slow
     
 }
 function getDeviceSchedule() {
+    // Retrieve schedule info from the server for this user's setting
+
+    // Populate currentCellStatus with the information if available
+    for (var i = 0; i < 24; i++) {
+        currentCellStatus[i] = [];
+        for (var j = 0; j < 7; j++) {
+            currentCellStatus[i][j] = 2; // Set schedule to the user's saved info
+        }
+    }
     
+    // Make it all black if the schedule is not available
+    for (var i = 0; i < 24; i++) {
+        currentCellStatus[i] = [];
+        for (var j = 0; j < 7; j++) {
+            currentCellStatus[i][j] = 2; // Set schedule to the user's saved info
+        }
+    }
 }
 
 // Populate the table elements
