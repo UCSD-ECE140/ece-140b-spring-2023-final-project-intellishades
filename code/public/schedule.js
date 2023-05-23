@@ -42,6 +42,10 @@ for (var i = 0; i < 24; i++) {
 }
 
 function init () { //only for things that are slow 
+
+    const confirmButton = document.getElementById("confirmButton");
+    confirmButton.addEventListener("click", sendScheduleToDevice());
+
     // Button to choose window mode
     const transparentButton = document.getElementById("blueButton");
     const dimButton = document.getElementById("dimButton");
@@ -178,4 +182,31 @@ function populateTable() {
         }
         table.appendChild(row);
     }
+}
+
+function sendScheduleToDevice() {
+    let dataToSend = {'device_id': 999,
+    'user_id': 000,
+    'schedule': currentCellStatus
+    };
+    server_request("/update_schedule", dataToSend, 'POST');
+}
+
+// Define the 'request' function to handle interactions with the server
+function server_request(url, data={}, verb, callback) {
+    return fetch(url, {
+        credentials: 'same-origin',
+        method: verb,
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+        }
+        })
+        .then(response => response.json())
+        .then(function(response) {
+        if(callback)
+            callback(response);
+        })
+        .catch(error => console.error('Error:', error));
 }
