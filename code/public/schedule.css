@@ -105,6 +105,20 @@ td {
     cursor: pointer;
 }
 
+.dim-button {
+    background-color: #bebebe;
+    color: #2C3531;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
 .blackout-button {
     background-color: #bebebe;
     color: #2C3531;
@@ -122,6 +136,13 @@ td {
 /* Hover effect for the specific button */
 .transparent-button:hover {
     background-color: #D1E8E2;
+}
+
+
+/* Hover effect for the dim button */
+.dim-button:hover {
+    background-color: gray;
+    color: white;
 }
 
 /* Hover effect for the black button */
