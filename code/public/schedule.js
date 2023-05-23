@@ -43,6 +43,7 @@ for (var i = 0; i < 24; i++) {
 
 function init () { //only for things that are slow 
 
+    getDeviceSchedule();
     const confirmButton = document.getElementById("confirmButton");
     confirmButton.addEventListener("click", sendScheduleToDevice());
 
@@ -123,6 +124,9 @@ function init () { //only for things that are slow
     });
 
     populateTable();
+    
+}
+function getDeviceSchedule() {
     
 }
 
