@@ -37,7 +37,7 @@ var currentCellStatus = [];
 for (var i = 0; i < 24; i++) {
     currentCellStatus[i] = [];
     for (var j = 0; j < 7; j++) {
-        currentCellStatus[i][j] = 2; // Set schedule to transparent on default
+        currentCellStatus[i][j] = 2; // Set schedule to black on default
     }
 }
 
@@ -151,21 +151,25 @@ function populateTable() {
                         this.classList.toggle(buttonColor);
                     //}
                 });*/
+                cell.classList.add("black"); // Make it OFF on default
                 cell.addEventListener("mouseup", function () {
-                    this.classList.remove("black");
-                    this.classList.remove("blue");
-                    this.classList.remove("dim");
                     //isMouseDown = false;
                     let hour = i - 1;
                     let day = j - 1;
                     if (blackButtonClicked) { // If the user selected black to adjust
                         currentCellStatus[hour][day] = 0;
                         this.classList.add("black");
+                        this.classList.remove("blue");
+                        this.classList.remove("dim");
                     } else if (transparentButtonClicked) { // If the user selected transparent to adjust
                         currentCellStatus[hour][day] = 2;
                         this.classList.add("blue");
+                        this.classList.remove("black");
+                        this.classList.remove("dim");
                     } else if (dimButtonClicked) { // If the user selected dim to adjust
                         currentCellStatus[hour][day] = 1;
+                        this.classList.remove("black");
+                    this.classList.remove("blue");
                         this.classList.add("dim");
                     }
                 });
