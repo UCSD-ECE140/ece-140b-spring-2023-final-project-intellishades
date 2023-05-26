@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+
 import time
 from urllib.request import Request, urlopen
 import json 
@@ -8,39 +8,29 @@ from datetime import datetime
 import ast 
 from multiprocessing import Process
 
-onPin = 40 # define ledPin 
-dimPin =38
 
 from dotenv import load_dotenv
 load_dotenv("credentials.env") 
+
 
 db_host = os.environ['MYSQL_HOST']
 db_user = os.environ['MYSQL_USER']
 db_pass = os.environ['MYSQL_PASSWORD']
 db_name = os.environ['MYSQL_DATABASE']
 
-def setup():
-    GPIO.setmode(GPIO.BOARD) # use PHYSICAL GPIO Numbering
-    GPIO.setup(onPin, GPIO.OUT) # set the ledPin to OUTPUT mode
-    GPIO.output(onPin, GPIO.LOW) # make ledPin output LOW level
-
-    GPIO.setup(dimPin, GPIO.OUT) # set the ledPin to OUTPUT mode
-    GPIO.output(dimPin, GPIO.LOW) # make ledPin output LOW level
- 
-    print (f'using pins: {onPin}, {dimPin}')
-
 def on(): 
-        GPIO.output(onPin, GPIO.HIGH) # makes shades go transparent
-        GPIO.output(dimPin, GPIO.LOW)
-        print ('shades turned on >>>') # print information on terminal
+    
+        print ('shades turned on >>>') # print information on terminal 
+        time.sleep(1)
+
 def off():  
-        GPIO.output(dimPin, GPIO.HIGH)
-        GPIO.output(onPin, GPIO.HIGH) # makes shades go opaque
+     
         print ('shades turned off <<<')
+        time.sleep(1)
 def dim(): 
-        GPIO.output(onPin, GPIO.LOW)
-        GPIO.output(dimPin, GPIO.HIGH) # makes shades go into dim state
+        
         print ('shades dimmed vvv')
+        time.sleep(1)
 
 
 def get_data():
@@ -106,10 +96,10 @@ def posting_process():
 
         date=datetime.now()
 
-        current_minute=date.minute 
+        current_second=date.second
 
         ##on the 45th minute, check if the schedule has been changed and update accordingly.
-        if current_minute==55: 
+        if current_second==55: 
             post_data()
 
 def setting_process(): 
@@ -118,8 +108,8 @@ def setting_process():
          date=datetime.now() 
 
          current_weekday=date.weekday() #weekday defines days starting with Monday not Sunday 
-         current_hour=date.hour
-         current_minute=date.minute
+         current_hour=9
+         current_second=date.second
 
 
          if current_weekday==0: ## Monday 
@@ -130,11 +120,11 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: ##current minute = 0 to only change on the beginning of the hour.
+              if state==0 and current_second==0: ##current minute = 0 to only change on the beginning of the hour.
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
 
          elif current_weekday==1: ## Tuesday 
@@ -145,11 +135,11 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
+              if state==0 and current_second==0: 
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
               
          elif current_weekday==2: ## Wednesday  
@@ -160,11 +150,11 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
+              if state==0 and current_second==0: 
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
               
          elif current_weekday==3: ## Thursday 
@@ -175,11 +165,11 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
+              if state==0 and current_second==0: 
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
               
          elif current_weekday==4:  ## Friday 
@@ -190,11 +180,11 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
+              if state==0 and current_second==0: 
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
 
          elif current_weekday==5: ## Saturday 
@@ -205,11 +195,11 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
+              if state==0 and current_second==0: 
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
          
          elif current_weekday==6: ## Sunday 
@@ -220,22 +210,21 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
+              if state==0 and current_second==0: 
                    off() 
-              elif state==1 and current_minute==0: 
+              elif state==1 and current_second==0: 
                    dim() 
-              elif state==2 and current_minute==0: 
+              elif state==2 and current_second==0: 
                    on()
      
 
      
 
-def destroy():
-    GPIO.cleanup() # Release all GPIO 
+
 
 if __name__ == '__main__': # Program entrance 
     
-    setup() 
+ 
     p=Process(target=posting_process) 
     p.start() 
     setting_process()
