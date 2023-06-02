@@ -1,4 +1,44 @@
-document.addEventListener("DOMContentLoaded", function () { //only for things that are slow 
+document.addEventListener("DOMContentLoaded", init);
+// Define table data
+var tableData = [
+    ['', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    ['12:00-1:00 AM', '', '', '', '', '', '', ''],
+    ['1:00-2:00 AM', '', '', '', '', '', '', ''],
+    ['2:00-3:00 AM', '', '', '', '', '', '', ''],
+    ['3:00-4:00 AM', '', '', '', '', '', '', ''],
+    ['4:00-5:00 AM', '', '', '', '', '', '', ''],
+    ['5:00-6:00 AM', '', '', '', '', '', '', ''],
+    ['6:00-7:00 AM', '', '', '', '', '', '', ''],
+    ['7:00-8:00 AM', '', '', '', '', '', '', ''],
+    ['8:00-9:00 AM', '', '', '', '', '', '', ''],
+    ['9:00-10:00 AM', '', '', '', '', '', '', ''],
+    ['10:00-11:00 AM', '', '', '', '', '', '', ''],
+    ['11:00-12:00 AM', '', '', '', '', '', '', ''],
+    ['12:00-1:00 PM', '', '', '', '', '', '', ''],
+    ['1:00-2:00 PM', '', '', '', '', '', '', ''],
+    ['2:00-3:00 PM', '', '', '', '', '', '', ''],
+    ['3:00-4:00 PM', '', '', '', '', '', '', ''],
+    ['4:00-5:00 PM', '', '', '', '', '', '', ''],
+    ['5:00-6:00 PM', '', '', '', '', '', '', ''],
+    ['6:00-7:00 PM', '', '', '', '', '', '', ''],
+    ['7:00-8:00 PM', '', '', '', '', '', '', ''],
+    ['8:00-9:00 PM', '', '', '', '', '', '', ''],
+    ['9:00-10:00 PM', '', '', '', '', '', '', ''],
+    ['10:00-11:00 PM', '', '', '', '', '', '', ''],
+    ['11:00-12:00 PM', '', '', '', '', '', '', '']
+];
+
+var currentCellStatus = [];
+for (var i = 0; i < 24; i++) {
+    currentCellStatus[i] = [];
+    for (var j = 0; j < 7; j++) {
+        // call get route that fetchs previously saved data 
+
+        currentCellStatus[i][j] = 2; // Set schedule to black on default
+    }
+}
+
+function init() { //only for things that are slow 
     // Button to choose window mode
     const blueButton = document.getElementById("blueButton");
     const dimButton = document.getElementById("dimButton");
@@ -47,36 +87,6 @@ document.addEventListener("DOMContentLoaded", function () { //only for things th
         }
     });
 
-
-    // Define table data
-    var tableData = [
-        ['', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        ['12:00-1:00 AM', '', '', '', '', '', '', ''],
-        ['1:00-2:00 AM', '', '', '', '', '', '', ''],
-        ['2:00-3:00 AM', '', '', '', '', '', '', ''],
-        ['3:00-4:00 AM', '', '', '', '', '', '', ''],
-        ['4:00-5:00 AM', '', '', '', '', '', '', ''],
-        ['5:00-6:00 AM', '', '', '', '', '', '', ''],
-        ['6:00-7:00 AM', '', '', '', '', '', '', ''],
-        ['7:00-8:00 AM', '', '', '', '', '', '', ''],
-        ['8:00-9:00 AM', '', '', '', '', '', '', ''],
-        ['9:00-10:00 AM', '', '', '', '', '', '', ''],
-        ['10:00-11:00 AM', '', '', '', '', '', '', ''],
-        ['11:00-12:00 AM', '', '', '', '', '', '', ''],
-        ['12:00-1:00 PM', '', '', '', '', '', '', ''],
-        ['1:00-2:00 PM', '', '', '', '', '', '', ''],
-        ['2:00-3:00 PM', '', '', '', '', '', '', ''],
-        ['3:00-4:00 PM', '', '', '', '', '', '', ''],
-        ['4:00-5:00 PM', '', '', '', '', '', '', ''],
-        ['5:00-6:00 PM', '', '', '', '', '', '', ''],
-        ['6:00-7:00 PM', '', '', '', '', '', '', ''],
-        ['7:00-8:00 PM', '', '', '', '', '', '', ''],
-        ['8:00-9:00 PM', '', '', '', '', '', '', ''],
-        ['9:00-10:00 PM', '', '', '', '', '', '', ''],
-        ['10:00-11:00 PM', '', '', '', '', '', '', ''],
-        ['11:00-12:00 PM', '', '', '', '', '', '', '']
-    ];
-
     // Get the table div element
     var tableDiv = document.getElementById("myTable");
 
@@ -117,53 +127,55 @@ document.addEventListener("DOMContentLoaded", function () { //only for things th
         }
         table.appendChild(row);
     }
+}
 
-    function cell_status_update(i, j) {
-        let hour = i - 1;
-        let day = j - 1;
-        if (blackButtonClicked) { // If the user selected black to adjust
-            currentCellStatus[hour][day] = 0;
-            this.classList.add("black");
-            this.classList.remove("blue");
-            this.classList.remove("dim");
-        } else if (transparentButtonClicked) { // If the user selected transparent to adjust
-            currentCellStatus[hour][day] = 2;
-            this.classList.add("blue");
-            this.classList.remove("black");
-            this.classList.remove("dim");
-        } else if (dimButtonClicked) { // If the user selected dim to adjust
-            currentCellStatus[hour][day] = 1;
-            this.classList.remove("black");
-            this.classList.remove("blue");
-            this.classList.add("dim");
+function cell_status_update(i, j) {
+    let hour = i - 1;
+    let day = j - 1;
+    if (blackButtonClicked) { // If the user selected black to adjust
+        currentCellStatus[hour][day] = 0;
+        this.classList.add("black");
+        this.classList.remove("blue");
+        this.classList.remove("dim");
+    } else if (transparentButtonClicked) { // If the user selected transparent to adjust
+        currentCellStatus[hour][day] = 2;
+        this.classList.add("blue");
+        this.classList.remove("black");
+        this.classList.remove("dim");
+    } else if (dimButtonClicked) { // If the user selected dim to adjust
+        currentCellStatus[hour][day] = 1;
+        this.classList.remove("black");
+        this.classList.remove("blue");
+        this.classList.add("dim");
+    }
+}
+
+console.log("current cell status", currentCellStatus);
+
+function sendScheduleToDevice() {
+    let dataToSend = {
+        'device_id': 999,
+        'user_id': 000,
+        'schedule': currentCellStatus
+    };
+    server_request("/update_schedule", dataToSend, 'POST');
+}
+
+// Define the 'request' function to handle interactions with the server
+function server_request(url, data = {}, verb, callback) {
+    return fetch(url, {
+        credentials: 'same-origin',
+        method: verb,
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
         }
-    }
-
-    function sendScheduleToDevice() {
-        let dataToSend = {
-            'device_id': 999,
-            'user_id': 000,
-            'schedule': currentCellStatus
-        };
-        server_request("/update_schedule", dataToSend, 'POST');
-    }
-
-    // Define the 'request' function to handle interactions with the server
-    function server_request(url, data = {}, verb, callback) {
-        return fetch(url, {
-            credentials: 'same-origin',
-            method: verb,
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+    })
+        .then(response => response.json())
+        .then(function (response) {
+            if (callback)
+                callback(response);
         })
-            .then(response => response.json())
-            .then(function (response) {
-                if (callback)
-                    callback(response);
-            })
-            .catch(error => console.error('Error:', error));
-    }
-});
+        .catch(error => console.error('Error:', error));
+}
