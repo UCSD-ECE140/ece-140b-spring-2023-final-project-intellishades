@@ -33,8 +33,25 @@ for (var i = 0; i < 24; i++) {
     currentCellStatus[i] = [];
     for (var j = 0; j < 7; j++) {
         // call get route that fetchs previously saved data 
-
-        currentCellStatus[i][j] = 2; // Set schedule to black on default
+        fetch("/schedule_data", {
+            credentials: 'same-origin', // 'include', default: 'omit'
+            method: 'GET',
+            body: null,
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest"
+            })
+        })
+            .then((data) => {
+                // console.log("schedule data:" , data);
+                currentCellStatus = data;
+                console.log("cell status after get route",currentCellStatus);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        // currentCellStatus[i][j] = 2; // Set schedule to black on default
     }
 }
 
@@ -43,6 +60,7 @@ function init() { //only for things that are slow
     const blueButton = document.getElementById("blueButton");
     const dimButton = document.getElementById("dimButton");
     const blackButton = document.getElementById("blackButton");
+    const confirmButton = document.getElementById("confirmButton");
     var buttonColor;
 
     var BlueOriginalColor = blueButton.style.backgroundColor;
@@ -106,17 +124,17 @@ function init() { //only for things that are slow
                 cell.addEventListener("mousedown", function () {
                     isMouseDown = true;
                     this.classList.toggle(buttonColor);
-                    cell_status_update(i, j);
+                    cell_status_update(i, j,BlackisClicked, BlueisClicked,dimisClicked);
                 });
                 cell.addEventListener("mouseover", function () {
                     if (isMouseDown) {
                         this.classList.toggle(buttonColor);
                     }
-                    cell_status_update(i, j);
+                    cell_status_update(i, j,BlackisClicked, BlueisClicked,dimisClicked);
                 });
                 cell.addEventListener("mouseup", function () {
                     isMouseDown = false;
-                    cell_status_update(i, j);
+                    cell_status_update(i, j,BlackisClicked, BlueisClicked,dimisClicked);
                 });
 
                 // Make it OFF on default
@@ -127,22 +145,27 @@ function init() { //only for things that are slow
         }
         table.appendChild(row);
     }
+
+    confirmButton.addEventListener("click", function () {
+        // send current schedule to mysql and pi
+        sendScheduleToDevice()
+    });
 }
 
-function cell_status_update(i, j) {
+function cell_status_update(i, j, BlackisClicked, BlueisClicked,dimisClicked) {
     let hour = i - 1;
     let day = j - 1;
-    if (blackButtonClicked) { // If the user selected black to adjust
+    if (BlackisClicked) { // If the user selected black to adjust
         currentCellStatus[hour][day] = 0;
         this.classList.add("black");
         this.classList.remove("blue");
         this.classList.remove("dim");
-    } else if (transparentButtonClicked) { // If the user selected transparent to adjust
+    } else if (BlueisClicked) { // If the user selected transparent to adjust
         currentCellStatus[hour][day] = 2;
         this.classList.add("blue");
         this.classList.remove("black");
         this.classList.remove("dim");
-    } else if (dimButtonClicked) { // If the user selected dim to adjust
+    } else if (dimisClicked) { // If the user selected dim to adjust
         currentCellStatus[hour][day] = 1;
         this.classList.remove("black");
         this.classList.remove("blue");
@@ -150,15 +173,11 @@ function cell_status_update(i, j) {
     }
 }
 
-console.log("current cell status", currentCellStatus);
 
 function sendScheduleToDevice() {
-    let dataToSend = {
-        'device_id': 999,
-        'user_id': 000,
-        'schedule': currentCellStatus
-    };
-    server_request("/update_schedule", dataToSend, 'POST');
+    console.log("current cell status", currentCellStatus);
+    currentCell_dict = {"currentCellStatus":currentCellStatus}
+    server_request("/update_schedule", currentCell_dict, 'POST');
 }
 
 // Define the 'request' function to handle interactions with the server
