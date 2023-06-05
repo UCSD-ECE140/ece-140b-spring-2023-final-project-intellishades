@@ -187,7 +187,7 @@ def get_schedule_data():
   schedule_info = []
   if(schedule_count[0] == 0):
     # return json that is all black 
-    all_black = [[0] * 24 for _ in range(7)]  
+    all_black = [[0] * 7 for _ in range(24)]  
     schedule_info = json.dumps(all_black)
   else:
     # return saved data
@@ -202,7 +202,7 @@ def get_schedule_data():
 def update_schedule_data(schedule_data):
   db = mysql.connect(**db_config)
   cursor = db.cursor()  
-  query = "INSERT INTO schedule(schedule_info) values (%s)"
+  query = "INSERT INTO schedule (schedule_info) values (%s)"
   values = ([json.dumps(schedule_data)])
   cursor.execute(query, values)
   print("put in mysql")

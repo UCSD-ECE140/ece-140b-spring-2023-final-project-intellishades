@@ -279,8 +279,7 @@ def get_schedule() -> JSONResponse:
 @app.post('/update_schedule', response_class=JSONResponse)
 def update_schedule(data: dict) -> JSONResponse:
   print("data: ", data)
-
-  db.update_schedule_data(data)
+  db.update_schedule_data(data["currentCellStatus"])
   # update on pi
 #   pi={'device_id': 999,
 #  'user_id': 000,

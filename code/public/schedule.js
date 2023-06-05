@@ -33,30 +33,19 @@ for (let i = 0; i < 24; i++) {
     currentCellStatus[i] = [];
     for (let j = 0; j < 7; j++) {
         currentCellStatus[i][j] = 0; // Set schedule to black on default
-        // call get route that fetchs previously saved data 
-        setInterval(function () {
-            fetch("/schedule_data", {
-                credentials: 'same-origin', // 'include', default: 'omit'
-                method: 'GET',
-                body: null,
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    "Accept": "application/json, text-plain, */*",
-                    "X-Requested-With": "XMLHttpRequest"
-                })
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("schedule data after get route:" , data);
-                    currentCellStatus = data;
-                    // console.log("cell status after get route", currentCellStatus);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }, 5000);
     }
 }
+var allCellElements = [];
+for (let i = 0; i < 24; i++) {
+    allCellElements[i] = [];
+    for (let j = 0; j < 7; j++) {
+        allCellElements[i][j] = 0; // Initialize the array of elements with placeholders
+    }
+}
+var BlueisClicked = false;
+var BlackisClicked = false;
+var dimisClicked = false;
+var buttonColor;
 
 function init() { //only for things that are slow 
     // Button to choose window mode
@@ -64,14 +53,11 @@ function init() { //only for things that are slow
     const dimButton = document.getElementById("dimButton");
     const blackButton = document.getElementById("blackButton");
     const confirmButton = document.getElementById("confirmButton");
-    var buttonColor;
 
     var BlueOriginalColor = blueButton.style.backgroundColor;
-    var BlueisClicked = false;
     var BlackOriginalColor = blackButton.style.backgroundColor;
-    var BlackisClicked = false;
     var dimOriginalColor = dimButton.style.backgroundColor;
-    var dimisClicked = false;
+    
 
     blackButton.addEventListener("click", function () {
         if (BlackisClicked) {
@@ -122,23 +108,25 @@ function init() { //only for things that are slow
             var cell = document.createElement("td");
             cell.innerText = tableData[i][j];
             if (i > 0 && j > 0) {
+                // Save the reference to the cell element
+                allCellElements[i - 1][j - 1] = cell;
                 // Add event listener to cell
                 var isMouseDown = false;
                 cell.addEventListener("mousedown", function () {
                     isMouseDown = true;
                     this.classList.toggle(buttonColor);
-                    cell_status_update(i, j, currentCellStatus, BlackisClicked, BlueisClicked, dimisClicked);
+                    cell_status_update(i, j);
                 });
                 cell.addEventListener("mouseover", function () {
                     if (isMouseDown) {
                         this.classList.toggle(buttonColor);
-                        cell_status_update(i, j, currentCellStatus, BlackisClicked, BlueisClicked, dimisClicked);
+                        cell_status_update(i, j);
 
                     }
                 });
                 cell.addEventListener("mouseup", function () {
                     isMouseDown = false;
-                    cell_status_update(i, j, currentCellStatus, BlackisClicked, BlueisClicked, dimisClicked);
+                    cell_status_update(i, j);
                 });
 
                 // Make it OFF on default
@@ -148,16 +136,61 @@ function init() { //only for things that are slow
             row.appendChild(cell);
         }
         table.appendChild(row);
-        console.log("JS current cells:", currentCellStatus);
+        //console.log("JS current cells:", currentCellStatus);
     }
 
     confirmButton.addEventListener("click", function () {
         // send current schedule to mysql and pi
         sendScheduleToDevice()
     });
+
+        // call get route that fetchs previously saved data 
+    //setTimeout(function () {
+        fetch("/schedule_data", {
+            credentials: 'same-origin', // 'include', default: 'omit'
+            method: 'GET',
+            body: null,
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest"
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                //console.log("schedule data after get route:" , data);
+                currentCellStatus = data;
+                updateAllCells(BlueOriginalColor, BlackOriginalColor, dimOriginalColor);
+                // console.log("cell status after get route", currentCellStatus);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    //}, 5000);
 }
 
-function cell_status_update(i, j, currentCellStatus, BlackisClicked, BlueisClicked, dimisClicked) {
+// Update all the cells after the new schedule is retrieved from the device
+function updateAllCells() {
+    for (let i = 0; i < tableData.length - 1; i++) {
+        for (let j = 0; j < tableData[i].length - 1; j++) {
+            if (currentCellStatus[i][j] == 0) {
+                allCellElements[i][j].classList.add("black");
+                allCellElements[i][j].classList.remove("blue");
+                allCellElements[i][j].classList.remove("dim");
+            } else if (currentCellStatus[i][j] == 2) {
+                allCellElements[i][j].classList.remove("black");
+                allCellElements[i][j].classList.add("blue");
+                allCellElements[i][j].classList.remove("dim");
+            } else if (currentCellStatus[i][j] == 1) {
+                allCellElements[i][j].classList.remove("black");
+                allCellElements[i][j].classList.remove("blue");
+                allCellElements[i][j].classList.add("dim");
+            }
+        }
+    }
+}
+
+function cell_status_update(i, j) {
     const hour = i - 1;
     const day = j - 1;
     if (BlackisClicked) { // If the user selected black to adjust
