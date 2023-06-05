@@ -266,28 +266,27 @@ def get_schedule() -> HTMLResponse:
 
 # GET /schedule_data
 @app.get('/schedule_data', response_class=JSONResponse)
-def get_schedule():
+def get_schedule() -> JSONResponse:
   # print("get into get schedule python")
   schedule_data = db.get_schedule_data()
   # print("schedule data:", schedule_data)
   schedule_array = json.loads(schedule_data)
   # print("type: " , type(schedule_array))
   print("schedule array in server.py: ", schedule_array)
-  return JSONResponse(schedule_array)
+  return schedule_array
 
 # POST /schedule_data
 @app.post('/update_schedule', response_class=JSONResponse)
 def update_schedule(data: dict) -> JSONResponse:
   print("data: ", data)
 
-  json_data = json.dumps(data)
-  db.update_schedule_data(json_data)
+  db.update_schedule_data(data)
   # update on pi
-  pi={'device_id': 999,
- 'user_id': 000,
- 'schedule': int(data)}
+#   pi={'device_id': 999,
+#  'user_id': 000,
+#  'schedule': int(data)}
   
-  return JSONResponse(pi) 
+#   return JSONResponse(pi) 
    
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

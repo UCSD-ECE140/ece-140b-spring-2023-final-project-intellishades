@@ -32,6 +32,7 @@ var currentCellStatus = [];
 for (let i = 0; i < 24; i++) {
     currentCellStatus[i] = [];
     for (let j = 0; j < 7; j++) {
+        currentCellStatus[i][j] = 0; // Set schedule to black on default
         // call get route that fetchs previously saved data 
         setInterval(function () {
             fetch("/schedule_data", {
@@ -44,16 +45,16 @@ for (let i = 0; i < 24; i++) {
                     "X-Requested-With": "XMLHttpRequest"
                 })
             })
+                .then((response) => response.json())
                 .then((data) => {
-                    // console.log("schedule data:" , data);
+                    console.log("schedule data after get route:" , data);
                     currentCellStatus = data;
-                    console.log("cell status after get route", currentCellStatus);
+                    // console.log("cell status after get route", currentCellStatus);
                 })
                 .catch((error) => {
                     console.error(error);
                 });
-        }, 500);
-        // currentCellStatus[i][j] = 0; // Set schedule to black on default
+        }, 5000);
     }
 }
 

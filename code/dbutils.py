@@ -191,8 +191,8 @@ def get_schedule_data():
     schedule_info = json.dumps(all_black)
   else:
     # return saved data
-    cursor.execute(f"SELECT schedule_info FROM schedule;")
-    schedule_info = cursor.fetchone()
+    cursor.execute(f"SELECT schedule_info FROM schedule ORDER BY created_at DESC LIMIT 1;")
+    schedule_info = cursor.fetchone()[0]
     print(schedule_info)
     
   db.close()
@@ -203,11 +203,9 @@ def update_schedule_data(schedule_data):
   db = mysql.connect(**db_config)
   cursor = db.cursor()  
   query = "INSERT INTO schedule(schedule_info) values (%s)"
-  values = (schedule_data)
+  values = ([json.dumps(schedule_data)])
   cursor.execute(query, values)
   print("put in mysql")
-
-
   db.commit()
   db.close()
   return True if cursor.rowcount == 1 else False
