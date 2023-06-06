@@ -218,7 +218,9 @@ function cell_status_update(i, j) {
 
 function sendScheduleToDevice() {
     console.log("current cell status", currentCellStatus);
-    currentCell_dict = { "currentCellStatus": currentCellStatus }
+    currentCell_dict = {"device_id": 99, // Placeholder Device ID
+                        "user_id": 000, //Placeholder User ID
+                        "schedule": currentCellStatus}
     server_request("/update_schedule", currentCell_dict, 'POST');
 }
 

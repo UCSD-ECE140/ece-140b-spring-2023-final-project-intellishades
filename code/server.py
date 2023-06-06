@@ -267,7 +267,9 @@ def get_schedule() -> HTMLResponse:
 # GET /schedule_data
 @app.get('/schedule_data', response_class=JSONResponse)
 def get_schedule() -> JSONResponse:
-  stored_data = eval(db.get_schedule_data())
+  stored_data = db.get_schedule_data()
+  stored_data = stored_data['schedule']
+  # stored_data = eval(stored_data)
   # Must convert to a List before converting into numpy array
   stored_data = np.asarray(stored_data, dtype=int)
   # Apply transpose after converting to numpy array
@@ -280,8 +282,13 @@ def get_schedule() -> JSONResponse:
 # POST /schedule_data
 @app.post('/update_schedule', response_class=JSONResponse)
 def update_schedule(data: dict) -> JSONResponse:
-  schedule_to_save = np.transpose(data["currentCellStatus"])
-  db.update_schedule_data(np.ndarray.tolist(schedule_to_save))
+  schedule_to_save = np.transpose(data["schedule"])
+  data_to_save = {
+        'device_id': data["device_id"],
+        'user_id': data["user_id"],
+        'schedule': np.ndarray.tolist(schedule_to_save)
+  }
+  db.update_schedule_data(data_to_save)
   # update on pi
 #   pi={'device_id': 999,
 #  'user_id': 000,
