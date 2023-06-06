@@ -159,7 +159,7 @@ function init() { //only for things that are slow
             .then((response) => response.json())
             .then((data) => {
                 //console.log("schedule data after get route:" , data);
-                currentCellStatus = data;
+                currentCellStatus = data["schedule"];
                 updateAllCells(BlueOriginalColor, BlackOriginalColor, dimOriginalColor);
                 // console.log("cell status after get route", currentCellStatus);
             })
