@@ -173,3 +173,37 @@ def delete_comment(comment_id:int, section_id:int, team_id:int, user_id: int) ->
   db.commit()
   db.close()
   return True if cursor.rowcount == 1 else False
+
+
+
+# get schedule data
+def get_schedule_data() -> list:
+  db = mysql.connect(**db_config)
+  cursor = db.cursor()
+  
+  # access mysql data 
+  cursor.execute(f"SELECT COUNT(*) AS total_count FROM schedule;")
+  schedule_count = cursor.fetchone()
+  schedule_info = []
+  if(schedule_count[0] == 0):
+    # return json that is all black 
+    all_black = [[0] * 24 for _ in range(7)]  
+    schedule_info = all_black # json.dumps(all_black)
+  else:
+    # return saved data
+    cursor.execute(f"SELECT schedule_info FROM schedule ORDER BY created_at DESC LIMIT 1;")
+    schedule_info = cursor.fetchone()[0]
+    schedule_info = json.loads(schedule_info)
+  db.close()
+  return schedule_info
+
+
+def update_schedule_data(schedule_data) -> bool:
+  db = mysql.connect(**db_config)
+  cursor = db.cursor()  
+  query = "INSERT INTO schedule (schedule_info) values (%s)"
+  values = ([json.dumps(schedule_data)])
+  cursor.execute(query, values)
+  db.commit()
+  db.close()
+  return True if cursor.rowcount == 1 else False
