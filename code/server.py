@@ -264,8 +264,8 @@ def get_schedule() -> HTMLResponse:
         return HTMLResponse(content=html.read())
 
 
-# GET /schedule_data
-@app.get('/schedule_data', response_class=JSONResponse)
+# GET /schedule_data for the website
+@app.get('/schedule_data_webstie', response_class=JSONResponse)
 def get_schedule() -> JSONResponse:
   database_data = db.get_schedule_data()
   stored_data = database_data['schedule']
@@ -280,6 +280,18 @@ def get_schedule() -> JSONResponse:
     'device_id': database_data["device_id"],
     'user_id': database_data["user_id"],
     'schedule': stored_data
+  }
+  print("schedule info in server.py: ", data_to_send)
+  return data_to_send
+
+# GET /schedule_data for the pi, no transpose
+@app.get('/schedule_data', response_class=JSONResponse)
+def get_schedule() -> JSONResponse:
+  database_data = db.get_schedule_data()
+  data_to_send = {
+    'device_id': database_data["device_id"],
+    'user_id': database_data["user_id"],
+    'schedule': database_data["schedule"]
   }
   print("schedule info in server.py: ", data_to_send)
   return data_to_send

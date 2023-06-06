@@ -146,7 +146,7 @@ function init() { //only for things that are slow
 
         // call get route that fetchs previously saved data 
     //setTimeout(function () {
-        fetch("/schedule_data", {
+        fetch("/schedule_data_webstie", {
             credentials: 'same-origin', // 'include', default: 'omit'
             method: 'GET',
             body: null,
