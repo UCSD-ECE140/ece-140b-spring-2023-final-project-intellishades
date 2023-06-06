@@ -177,7 +177,7 @@ def delete_comment(comment_id:int, section_id:int, team_id:int, user_id: int) ->
 
 
 # get schedule data
-def get_schedule_data():
+def get_schedule_data() -> list:
   db = mysql.connect(**db_config)
   cursor = db.cursor()
   
@@ -193,12 +193,12 @@ def get_schedule_data():
     # return saved data
     cursor.execute(f"SELECT schedule_info FROM schedule ORDER BY created_at DESC LIMIT 1;")
     schedule_info = cursor.fetchone()[0]
-    
+    schedule_info = json.loads(schedule_info)
   db.close()
   return schedule_info
 
 
-def update_schedule_data(schedule_data):
+def update_schedule_data(schedule_data) -> bool:
   db = mysql.connect(**db_config)
   cursor = db.cursor()  
   query = "INSERT INTO schedule (schedule_info) values (%s)"

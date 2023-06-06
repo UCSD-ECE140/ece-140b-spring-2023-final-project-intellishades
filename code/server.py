@@ -267,13 +267,15 @@ def get_schedule() -> HTMLResponse:
 # GET /schedule_data
 @app.get('/schedule_data', response_class=JSONResponse)
 def get_schedule() -> JSONResponse:
-  stored_data = db.get_schedule_data()
+  stored_data = eval(db.get_schedule_data())
+  # Must convert to a List before converting into numpy array
+  stored_data = np.asarray(stored_data, dtype=int)
+  # Apply transpose after converting to numpy array
   stored_data = np.transpose(stored_data)
-  stored_data = json.dumps(np.ndarray.tolist(stored_data))
-  schedule_array = json.loads(stored_data)
-  # print("type: " , type(schedule_array))
-  print("schedule array in server.py: ", schedule_array)
-  return schedule_array
+  # Convert back to a list to return
+  stored_data = np.ndarray.tolist(stored_data)
+  print("schedule array in server.py: ", stored_data)
+  return stored_data
 
 # POST /schedule_data
 @app.post('/update_schedule', response_class=JSONResponse)
