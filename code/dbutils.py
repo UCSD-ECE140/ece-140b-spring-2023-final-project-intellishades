@@ -187,13 +187,12 @@ def get_schedule_data():
   schedule_info = []
   if(schedule_count[0] == 0):
     # return json that is all black 
-    all_black = [[0] * 7 for _ in range(24)]  
-    schedule_info = json.dumps(all_black)
+    all_black = [[0] * 24 for _ in range(7)]  
+    schedule_info = all_black # json.dumps(all_black)
   else:
     # return saved data
     cursor.execute(f"SELECT schedule_info FROM schedule ORDER BY created_at DESC LIMIT 1;")
     schedule_info = cursor.fetchone()[0]
-    print(schedule_info)
     
   db.close()
   return schedule_info
@@ -205,7 +204,6 @@ def update_schedule_data(schedule_data):
   query = "INSERT INTO schedule (schedule_info) values (%s)"
   values = ([json.dumps(schedule_data)])
   cursor.execute(query, values)
-  print("put in mysql")
   db.commit()
   db.close()
   return True if cursor.rowcount == 1 else False

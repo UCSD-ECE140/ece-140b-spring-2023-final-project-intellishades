@@ -22,7 +22,7 @@ import uvicorn
 import dbutils as db
 import json
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-
+import numpy as np                                # Used for transposing arrays of schedule info
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 # Configuration
 # Specify the "app" that will run the routing
@@ -267,10 +267,10 @@ def get_schedule() -> HTMLResponse:
 # GET /schedule_data
 @app.get('/schedule_data', response_class=JSONResponse)
 def get_schedule() -> JSONResponse:
-  # print("get into get schedule python")
-  schedule_data = db.get_schedule_data()
-  # print("schedule data:", schedule_data)
-  schedule_array = json.loads(schedule_data)
+  stored_data = db.get_schedule_data()
+  stored_data = np.transpose(stored_data)
+  stored_data = json.dumps(np.ndarray.tolist(stored_data))
+  schedule_array = json.loads(stored_data)
   # print("type: " , type(schedule_array))
   print("schedule array in server.py: ", schedule_array)
   return schedule_array
@@ -278,8 +278,8 @@ def get_schedule() -> JSONResponse:
 # POST /schedule_data
 @app.post('/update_schedule', response_class=JSONResponse)
 def update_schedule(data: dict) -> JSONResponse:
-  print("data: ", data)
-  db.update_schedule_data(data["currentCellStatus"])
+  schedule_to_save = np.transpose(data["currentCellStatus"])
+  db.update_schedule_data(np.ndarray.tolist(schedule_to_save))
   # update on pi
 #   pi={'device_id': 999,
 #  'user_id': 000,
