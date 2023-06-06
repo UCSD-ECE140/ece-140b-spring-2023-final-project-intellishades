@@ -76,7 +76,7 @@ def post_data():
 
     ### READS DATA: JSON  ---> INT LIST ###
     
-    url='http://DESKTOP-1TBML6M.local:6543/update_schedule'
+    url='http://DESKTOP-1TBML6M.local:6543/schedule_data'
 
     response=urlopen(url) 
 
