@@ -6,7 +6,8 @@ import mysql.connector as mysql
 import os 
 from datetime import datetime 
 import ast 
-from multiprocessing import Process
+from multiprocessing import Process 
+import random
 
 onPin = 40 # define ledPin 
 dimPin =38
@@ -66,6 +67,8 @@ def get_data():
 
    response = {'sunday':ast.literal_eval(records[0]), 'monday':ast.literal_eval(records[1]), 'tuesday':ast.literal_eval(records[2]), 'wednesday':ast.literal_eval(records[3]), 'thursday':ast.literal_eval(records[4]), 'friday':ast.literal_eval(records[5]), 'saturday':ast.literal_eval(records[6])}
    
+   
+
    return response
    
 
@@ -73,7 +76,7 @@ def post_data():
 
     ### READS DATA: JSON  ---> INT LIST ###
     
-    url='http://localhost:6543/update_schedule'
+    url='http://DESKTOP-1TBML6M.local:6543/update_schedule'
 
     response=urlopen(url) 
 
@@ -108,22 +111,25 @@ def posting_process():
 
         date=datetime.now()
 
-        current_minute=date.minute 
+        current_second=date.second
 
         ##on the 45th minute, check if the schedule has been changed and update accordingly.
-        if current_minute==55: 
-            post_data()
-
+        if current_second==55: 
+            post_data() 
+            time.sleep(1)
+current_hour=0
 def setting_process(): 
     while True: 
          
          date=datetime.now() 
 
          current_weekday=date.weekday() #weekday defines days starting with Monday not Sunday 
-         current_hour=date.hour
-         current_minute=date.minute
+         global current_hour
+         current_second=date.second
 
-
+         if current_hour==24: 
+              current_hour=0
+          
          if current_weekday==0: ## Monday 
               
               response=get_data() 
@@ -132,12 +138,18 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: ##current minute = 0 to only change on the beginning of the hour.
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
+              if state==0 and current_second==0: 
+                    off()  
+                    current_hour=current_hour+1 
+                    print(current_hour)
+              elif state==1 and current_second==0: 
+                    dim()  
+                    current_hour=current_hour+1
+                    print(current_hour)
+              elif state==2 and current_second==0: 
+                    on() 
+                    current_hour=current_hour+1
+                    print(current_hour) 
 
          elif current_weekday==1: ## Tuesday 
               
@@ -147,12 +159,18 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
+              if state==0 and current_second==0: 
+                    off()  
+                    current_hour=current_hour+1 
+                    print(current_hour)
+              elif state==1 and current_second==0: 
+                    dim()  
+                    current_hour=current_hour+1
+                    print(current_hour)
+              elif state==2 and current_second==0: 
+                    on() 
+                    current_hour=current_hour+1
+                    print(current_hour)
               
          elif current_weekday==2: ## Wednesday  
               
@@ -162,12 +180,18 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
+              if state==0 and current_second==0: 
+                    off()  
+                    current_hour=current_hour+1 
+                    print(current_hour)
+              elif state==1 and current_second==0: 
+                    dim()  
+                    current_hour=current_hour+1
+                    print(current_hour)
+              elif state==2 and current_second==0: 
+                    on() 
+                    current_hour=current_hour+1
+                    print(current_hour)
               
          elif current_weekday==3: ## Thursday 
               
@@ -177,12 +201,18 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
+              if state==0 and current_second==0: 
+                    off()  
+                    current_hour=current_hour+1 
+                    print(current_hour)
+              elif state==1 and current_second==0: 
+                    dim()  
+                    current_hour=current_hour+1
+                    print(current_hour)
+              elif state==2 and current_second==0: 
+                    on() 
+                    current_hour=current_hour+1
+                    print(current_hour)
               
          elif current_weekday==4:  ## Friday 
               
@@ -190,14 +220,20 @@ def setting_process():
 
               data=response['friday'] 
 
-              state=data[current_hour] 
+              state=data[current_hour]  
 
-              if state==0 and current_minute==0: 
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
+              if state==0 and current_second==0: 
+                   off()  
+                   current_hour=current_hour+1 
+                   print(current_hour)
+              elif state==1 and current_second==0: 
+                   dim()  
+                   current_hour=current_hour+1
+                   print(current_hour)
+              elif state==2 and current_second==0: 
+                   on() 
+                   current_hour=current_hour+1
+                   print(current_hour)
 
          elif current_weekday==5: ## Saturday 
               
@@ -207,37 +243,51 @@ def setting_process():
 
               state=data[current_hour] 
 
-              if state==0 and current_minute==0: 
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
-         
+              if state==0 and current_second==0: 
+                    off()  
+                    current_hour=current_hour+1 
+                    print(current_hour)
+              elif state==1 and current_second==0: 
+                    dim()  
+                    current_hour=current_hour+1
+                    print(current_hour)
+              elif state==2 and current_second==0: 
+                    on() 
+                    current_hour=current_hour+1
+                    print(current_hour)
+          
          elif current_weekday==6: ## Sunday 
               
               response=get_data() 
 
               data=response['sunday'] 
 
-              state=data[current_hour] 
+              state=data[current_hour]  
 
-              if state==0 and current_minute==0: 
-                   off() 
-              elif state==1 and current_minute==0: 
-                   dim() 
-              elif state==2 and current_minute==0: 
-                   on()
+              if state==0 and current_second==0: 
+                    off()  
+                    current_hour=current_hour+1 
+                    print(current_hour)
+              elif state==1 and current_second==0: 
+                    dim()  
+                    current_hour=current_hour+1
+                    print(current_hour)
+              elif state==2 and current_second==0: 
+                    on() 
+                    current_hour=current_hour+1
+                    print(current_hour) 
+
+         
+              
      
 
      
-
 def destroy():
     GPIO.cleanup() # Release all GPIO 
 
+
 if __name__ == '__main__': # Program entrance 
-    
-    setup() 
+    setup()
     p=Process(target=posting_process) 
     p.start() 
     setting_process()

@@ -273,7 +273,7 @@ def get_schedule() -> JSONResponse:
   # Must convert to a List before converting into numpy array
   stored_data = np.asarray(stored_data, dtype=int)
   # Apply transpose after converting to numpy array
-  stored_data = np.transpose(stored_data)
+  #stored_data = np.transpose(stored_data)
   # Convert back to a list to return
   stored_data = np.ndarray.tolist(stored_data)
   data_to_send = {
