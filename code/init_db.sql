@@ -35,7 +35,6 @@ create table if not exists device (
 
 create table if not exists schedule (
     id         integer auto_increment primary key,
-    device_id integer not null,
     schedule_info json not null,
     created_at timestamp not null default current_timestamp
 );
