@@ -70,6 +70,11 @@ function init() { //only for things that are slow
             BlackisClicked = true;
             buttonColor = "black"
         }
+        blueButton.style.backgroundColor = BlueOriginalColor;
+        BlueisClicked = false;
+
+        dimButton.style.backgroundColor = dimOriginalColor;
+        dimisClicked = false;
     });
 
     blueButton.addEventListener("click", function () {
@@ -81,6 +86,12 @@ function init() { //only for things that are slow
             BlueisClicked = true;
             buttonColor = "blue"
         }
+        blackButton.style.backgroundColor = BlackOriginalColor;
+        blackButton.style.color = "#2C3531";
+        BlackisClicked = false;
+
+        dimButton.style.backgroundColor = dimOriginalColor;
+        dimisClicked = false;
     });
 
     dimButton.addEventListener("click", function () {
@@ -92,6 +103,12 @@ function init() { //only for things that are slow
             dimisClicked = true;
             buttonColor = "dim"
         }
+        blackButton.style.backgroundColor = BlackOriginalColor;
+        blackButton.style.color = "#2C3531";
+        BlackisClicked = false;
+
+        blueButton.style.backgroundColor = BlueOriginalColor;
+        BlueisClicked = false;
     });
 
     // Get the table div element
@@ -114,14 +131,13 @@ function init() { //only for things that are slow
                 var isMouseDown = false;
                 cell.addEventListener("mousedown", function () {
                     isMouseDown = true;
-                    this.classList.toggle(buttonColor);
+                    //this.classList.add(buttonColor);
                     cell_status_update(i, j);
                 });
                 cell.addEventListener("mouseover", function () {
                     if (isMouseDown) {
-                        this.classList.toggle(buttonColor);
+                        //this.classList.add(buttonColor);
                         cell_status_update(i, j);
-
                     }
                 });
                 cell.addEventListener("mouseup", function () {
@@ -195,22 +211,22 @@ function cell_status_update(i, j) {
     const day = j - 1;
     if (BlackisClicked) { // If the user selected black to adjust
         currentCellStatus[hour][day] = 0;
-        // this.classList.add("black");
-        // this.classList.remove("blue");
-        // this.classList.remove("dim");
+        allCellElements[hour][day].classList.add("black");
+        allCellElements[hour][day].classList.remove("blue");
+        allCellElements[hour][day].classList.remove("dim");
         console.log("black clicked:", currentCellStatus);
     } else if (BlueisClicked) { // If the user selected transparent to adjust
         console.log("current status hour day:", hour, day);
         currentCellStatus[hour][day] = 2;
-        // this.classList.add("blue");
-        // this.classList.remove("black");
-        // this.classList.remove("dim");
+        allCellElements[hour][day].classList.add("blue");
+        allCellElements[hour][day].classList.remove("black");
+        allCellElements[hour][day].classList.remove("dim");
         console.log("transparent clicked:", currentCellStatus);
     } else if (dimisClicked) { // If the user selected dim to adjust
         currentCellStatus[hour][day] = 1;
-        // this.classList.remove("black");
-        // this.classList.remove("blue");
-        // this.classList.add("dim");
+        allCellElements[hour][day].classList.remove("black");
+        allCellElements[hour][day].classList.remove("blue");
+        allCellElements[hour][day].classList.add("dim");
         console.log("dim clicked:", currentCellStatus);
     }
 }
