@@ -33,8 +33,6 @@ views = Jinja2Templates(directory='views')
 static_files = StaticFiles(directory='public')
 # Mount the static files directory to /public
 app.mount('/public', static_files, name='public')
-# Mount the static files directory to /images
-app.mount('/images', static_files, name='images')
 
 # Use MySQL for storing session data
 sessions = Sessions(

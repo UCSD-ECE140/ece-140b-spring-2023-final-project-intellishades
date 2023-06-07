@@ -6,11 +6,11 @@ async function init() {
       });
 
       var imageElement = document.getElementById("shade_effect");
-      var imageArray = ["/images/transparent.jpeg", "/images/dim.png", "/images/blackout.png"];
+      var imageArray = ["/public/images/transparent.jpeg", "/public/images/dim.png", "/public/images/blackout.png"];
       var currentIndex = 0;
       setInterval(function(){
         imageElement.src = imageArray[currentIndex];
         currentIndex = (currentIndex + 1) % imageArray.length;
-      }, 2000);
+      }, 1500);
 
 }
