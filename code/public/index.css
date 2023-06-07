@@ -77,99 +77,42 @@ td {
     border: none;
 }
 
-.button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
+
+.container {
+    display: flex;
+    height: 80vh;
+}
+
+.container-fluid {
+    padding: 3% 15%;
+}
+
+.action-container {
+    padding: 30px;
     text-align: center;
-    text-decoration: none;
-    border-radius: 10px;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+    border-radius: 5px;
 }
 
-.transparent-button {
-    background-color: #bebebe;
-    color: #2C3531;
-    border: none;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 10px;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.blackout-button {
-    background-color: #bebebe;
-    color: #2C3531;
-    border: none;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 10px;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-/* Hover effect for the specific button */
-.transparent-button:hover {
-    background-color: #D1E8E2;
-}
-
-/* Hover effect for the black button */
-.blackout-button:hover {
-    background-color: #2C3531;
-    color: white;
-
-}
-
-.form_col {
+.image-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+}
+
+.action-section {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-container {
+    padding: 30px;
     text-align: center;
-    margin-top: 1rem;
-    display: block;
-    padding: 2rem;
-    background-color: #333;
-}
-
-.form_col input {
-    padding: 0.5rem;
-    font-size: 1.5rem;
-}
-
-.form_col input[type=submit] {
-    padding: 2rem;
-    background-color: #449ee3;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.form_col .save_button {
-    padding: 0.5rem;
-    background-color: #449ee3;
-    border: 3px solid #555;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.form_col .cancel_button {
-    padding: 0.5rem;
-    background-color: #555;
-    border: 1px solid #ddd;
-    cursor: pointer;
-}
-
-form {
-    display: inline;
-    text-align: center;
+    border-radius: 10px;
+    color: white;
 }
 
 .grid-container {
@@ -244,7 +187,69 @@ td {
 }
 
 h1 {
-    color: #FFCB9A;
+    /* color: #FFCB9A; */
     text-align: center;
     padding: 10px;
+}
+
+.right-align {
+    text-align: right;
+}
+
+#Proposition {
+    background-color: white;
+    padding: 30px;
+}
+
+#prop-heading{
+    color: #116466;
+    font-weight: bold;
+}
+
+.proposition-text{
+    color: #116466;
+}
+
+p{
+    font-size: 20px;
+    padding: 20px;
+}
+
+button {
+    background-color: #FFCB9A;
+    border: none;
+    color: #2C3531;
+    padding: 15px 50px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button.login{
+    margin-right: 100px;
+}
+
+img {
+    width: 500px;
+    height: auto;
+  }
+
+p.buy{
+    color: #FFCB9A;
+}
+
+h1.moto{
+    font-family:"Fira Code";
+    font-size: 3rem;
+}
+
+h2{
+    font-family:"Fira Code";
+}
+h1.buy{
+    color:white;
 }
