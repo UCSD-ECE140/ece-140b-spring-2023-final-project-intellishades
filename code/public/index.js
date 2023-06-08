@@ -1,15 +1,16 @@
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
-    await fetch("/protected").then(response => {
-        return response.json();
-    }).then(json => {
-        // Only get section information if the data is not null
-        if(json["message"] == 'Access granted') {
-            let navBar = document.querySelector("nav");
-            navBar.innerHTML = `
-                <a href="/">Main Page</a> | <a href="/logout">Log Out</a> | 
-                <a href="/devices">Manage Device</a> | <a href="/dashboard">Profile</a>`;
-        }
-    });
+    document.getElementById("buyNow").addEventListener("click", function() {
+        alert("We regret to inform you that we are currently not offering any products for sale. We kindly request you to revisit our platform at a later time.");
+      });
+
+      var imageElement = document.getElementById("shade_effect");
+      var imageArray = ["/public/images/transparent.jpeg", "/public/images/dim.png", "/public/images/blackout.png"];
+      var currentIndex = 0;
+      setInterval(function(){
+        imageElement.src = imageArray[currentIndex];
+        currentIndex = (currentIndex + 1) % imageArray.length;
+      }, 1500);
+
 }
