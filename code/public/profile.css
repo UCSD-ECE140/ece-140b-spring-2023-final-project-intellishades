@@ -285,3 +285,6 @@ button.edit-user{
     cursor: pointer;
 }
 
+#delete-profile{
+    padding-bottom:30px;
+}

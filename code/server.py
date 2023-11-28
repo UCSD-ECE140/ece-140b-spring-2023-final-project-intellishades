@@ -265,7 +265,7 @@ def get_schedule() -> HTMLResponse:
 
 
 # GET /schedule_data for the website
-@app.get('/schedule_data_webstie', response_class=JSONResponse)
+@app.get('/schedule_data_website', response_class=JSONResponse)
 def get_schedule() -> JSONResponse:
   database_data = db.get_schedule_data()
   stored_data = database_data['schedule']

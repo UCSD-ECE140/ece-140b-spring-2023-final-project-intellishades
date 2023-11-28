@@ -73,6 +73,10 @@
     /* Grey background on hover */
 }
 
+#scheduling {
+    padding: 20px; /* Adjust the value as needed */
+}
+
 td {
     border: none;
 }
@@ -87,7 +91,6 @@ td {
     border-radius: 10px;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
 }
 
@@ -140,7 +143,7 @@ td {
 }
 
 .confirm-button {
-    position:absolute;
+    position:relative;
     background-color: #bebebe;
     color: #2C3531;
     border: none;
@@ -149,9 +152,15 @@ td {
     text-decoration: none;
     border-radius: 10px;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 10px 2px;
     cursor: pointer;
     left: 40%;
+    top: 50%;
+    left: 50%;
+}
+
+.confirm-button:hover{
+    background-color:white;
 }
 
 /* Hover effect for the specific button */
@@ -248,18 +257,23 @@ th {
 
 
 /* Remove borders from a specific table with ID */
-#no_lines_table {
+#blindColorTable {
     border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#schedulingTable{
+    margin-bottom: 20px;
 }
 
 /* Remove borders from the table rows of the specific table */
-#no_lines_table tr {
+#blindColorTable tr {
     border: none;
 }
 
 /* Remove borders from the table cells of the specific table */
-#no_lines_table td,
-#no_lines_table th {
+#blindColorTable td,
+#blindColorTable th {
     border: none;
 }
 

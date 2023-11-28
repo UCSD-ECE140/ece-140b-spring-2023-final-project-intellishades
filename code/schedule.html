@@ -13,8 +13,6 @@
 
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-	<link id="favicon" rel="shortcut icon" href="images/NM_Logo.png">
-
 </head>
 
 <body>
@@ -30,9 +28,6 @@
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 				<ul class="navbar-nav ml-auto">
 					<li class="navbar-item">
-						<a href="/dashboard" class="nav-link">Home</a>
-					</li>
-					<li class="navbar-item">
 						<a href="/schedule" class="nav-link">Schedule</a>
 					</li>
 					<li class="navbar-item">
@@ -45,21 +40,23 @@
 		</nav>
 	</section>
 
-	<h1>Schedule Your Blinds</h1>
-	<table id = "no_lines_table">
-        <thead>
-            <tr>
-                <th>Choose A Shade & Highlight the Times You'd like </th>
-                <th><button class = "transparent-button" id="blueButton">Transparent</button></th>
-				<th><button class = "dim-button" id="dimButton">Dim</button></th>
-                <th><button class = "blackout-button" id="blackButton">Blackout</button></th>
-            </tr>
-        </thead>
-        </tbody>
-    </table>
-	<br>
-	<div id="myTable"></div>
-	<button class = "confirm-button" id="confirmButton">Confirm</button></th>
+	<section id="scheduling">
+		<h1>Schedule Your Blinds</h1>
+		<table id = "blindColorTable">
+			<thead>
+				<tr>
+					<th>Choose A Shade & Highlight the Times You'd like </th>
+					<th><button class = "transparent-button" id="blueButton">Transparent</button></th>
+					<th><button class = "dim-button" id="dimButton">Dim</button></th>
+					<th><button class = "blackout-button" id="blackButton">Blackout</button></th>
+				</tr>
+			</thead>
+			</tbody>
+		</table>
+		<div id="schedulingTable"></div>
+		<button class = "confirm-button" id="confirmButton">Confirm</button></th>
+	</section>
+	
 </body>
 
 

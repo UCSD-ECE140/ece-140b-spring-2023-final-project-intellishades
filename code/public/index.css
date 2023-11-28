@@ -149,18 +149,18 @@ th {
 
 
 /* Remove borders from a specific table with ID */
-#no_lines_table {
+#blindColorTable {
     border-collapse: collapse;
 }
 
 /* Remove borders from the table rows of the specific table */
-#no_lines_table tr {
+#blindColorTable tr {
     border: none;
 }
 
 /* Remove borders from the table cells of the specific table */
-#no_lines_table td,
-#no_lines_table th {
+#blindColorTable td,
+#blindColorTable th {
     border: none;
 }
 

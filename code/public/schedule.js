@@ -112,7 +112,7 @@ function init() { //only for things that are slow
     });
 
     // Get the table div element
-    var tableDiv = document.getElementById("myTable");
+    var tableDiv = document.getElementById("schedulingTable");
 
     // Create a table element and add it to the table div
     var table = document.createElement("table");
@@ -162,7 +162,7 @@ function init() { //only for things that are slow
 
         // call get route that fetchs previously saved data 
     //setTimeout(function () {
-        fetch("/schedule_data_webstie", {
+        fetch("/schedule_data_website", {
             credentials: 'same-origin', // 'include', default: 'omit'
             method: 'GET',
             body: null,
