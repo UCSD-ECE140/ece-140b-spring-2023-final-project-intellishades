@@ -171,13 +171,13 @@ td {
 
 /* Hover effect for the dim button */
 .dim-button:hover {
-    background-color: gray;
+    background-color: #D9B08C;
     color: white;
 }
 
 /* Hover effect for the black button */
 .blackout-button:hover {
-    background-color: #2C3531;
+    background-color: #6F7874;
     color: white;
 
 }
@@ -278,7 +278,7 @@ th {
 }
 
 .black {
-    background-color: #2C3531;
+    background-color: #6F7874;
 }
 
 .blue {
